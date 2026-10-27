@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
+/* Design tokens. Tailwind v4 reads its theme from CSS, so the @theme block
+   below is the Tailwind config: it exposes each token as a utility
+   (bg-surface, text-muted, border-border, text-accent, ...). */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #121a23;
+  --surface: #1a2430;
+  --surface-2: #222e3b;
+  --border: #2e3b49;
+  --fg: #eef1f3;
+  --muted: #9aa6b2;
+  --accent: #e06c75;
+  --callout: #e3b65c;
+  --success: #7fc8a9;
+  --seg-active-bg: #dde3e1;
+  --seg-active-fg: #121a23;
+  --callout-bg: #161f29;
+
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-callout: var(--callout);
+  --color-callout-bg: var(--callout-bg);
+  --color-success: var(--success);
+  --color-seg-active-bg: var(--seg-active-bg);
+  --color-seg-active-fg: var(--seg-active-fg);
+
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-display: var(--font-archivo), var(--font-plex-sans), sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--bg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-text-size-adjust: 100%;
+}
+
+/* One visible focus style for every control. */
+:focus-visible {
+  outline: 2px solid var(--callout);
+  outline-offset: 2px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* Native checkbox, restyled flat. */
+input[type="checkbox"].check {
+  appearance: none;
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: none;
+  border: 1px solid var(--muted);
+  border-radius: 2px;
+  background: transparent;
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+}
+input[type="checkbox"].check:checked {
+  background: var(--seg-active-bg);
+  border-color: var(--seg-active-bg);
+}
+input[type="checkbox"].check:checked::after {
+  content: "";
+  width: 0.55rem;
+  height: 0.3rem;
+  border-left: 2px solid var(--seg-active-fg);
+  border-bottom: 2px solid var(--seg-active-fg);
+  transform: translateY(-1px) rotate(-45deg);
 }
